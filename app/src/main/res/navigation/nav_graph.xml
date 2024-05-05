@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/universitiesFragment">
+
+    <fragment
+        android:id="@+id/universitiesFragment"
+        android:name="com.mowael.universities.view.UniversitiesFragment"
+        android:label="UniversitiesFragment" >
+        <action
+            android:id="@+id/action_universitiesFragment_to_universityDetailsFragment"
+            app:destination="@id/universityDetailsFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/universityDetailsFragment"
+        android:name="com.mowael.universitydetails.view.UniversityDetailsFragment"
+        android:label="UniversityDetailsFragment" />
+</navigation>

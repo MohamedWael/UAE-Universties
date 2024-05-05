@@ -8,15 +8,18 @@ class LocalStorageImpl @Inject constructor(
 ) : LocalStorage {
 
     private val universityDao = db.universityDao()
-    override suspend fun insertUniversities(universities: List<UniversityDto>) {
+    override suspend fun insertUniversities(universities: List<UniversityDto>) =
         universityDao.insertUniversities(*universities.toTypedArray())
-    }
 
-    override suspend fun getUniversities(): List<UniversityDto> {
-        return universityDao.getAllUniversities()
-    }
 
-    override suspend fun deleteAllUniversities() {
-        universityDao.deleteAll()
-    }
+    override suspend fun getUniversities(): List<UniversityDto> = universityDao.getAllUniversities()
+
+    override suspend fun getUniversityById(id: Long): UniversityDto? =
+        universityDao.getUniversityById(id)
+
+    override suspend fun getUniversityByName(name: String): UniversityDto? =
+        universityDao.getUniversityByName(name)
+
+    override suspend fun deleteAllUniversities() = universityDao.deleteAll()
+
 }

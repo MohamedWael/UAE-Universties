@@ -51,6 +51,7 @@ dependencies {
 
     implementation project(':core')
     implementation project(':universities')
+    implementation project(':university-details')
 
     implementation libs.androidx.appcompat
     implementation libs.androidx.core.ktx
@@ -64,6 +65,10 @@ dependencies {
     implementation libs.androidx.lifecycle.livedata.ktx
     implementation libs.androidx.lifecycle.common.java8
 
+    implementation libs.androidx.navigation.fragment
+    implementation libs.androidx.navigation.ui
+    implementation libs.androidx.navigation.dynamic.features.fragment
+
     implementation libs.kotlinx.coroutines.android
     implementation libs.kotlinx.coroutines.core
     implementation libs.google.material
@@ -73,7 +78,7 @@ dependencies {
     implementation libs.retrofit2.converter.gson
     implementation libs.okhttp3.logging.interceptor
     implementation libs.dagger2
-
+    ksp libs.google.dagger.compiler
 
     testImplementation libs.kotlinx.coroutines.test
     testImplementation libs.junit

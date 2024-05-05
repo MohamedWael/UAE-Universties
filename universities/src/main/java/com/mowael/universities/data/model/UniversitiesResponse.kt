@@ -24,25 +24,13 @@ data class UniversityItem(
 
     @field:SerializedName("state-province")
     val stateProvince: String? = null
-){
+) {
     fun toDto() = UniversityDto(
         country = country,
-//        webPages = webPages,
+        webPages = webPages,
         name = name,
-//        domains = domains,
+        domains = domains,
         alphaTwoCode = alphaTwoCode,
         stateProvince = stateProvince
     )
 }
-
-fun UniversityDto.toUniversityItem():UniversityItem{
-    return UniversityItem(
-        country = country,
-//        webPages = webPages,
-        name = name,
-//        domains = domains,
-        alphaTwoCode = alphaTwoCode,
-        stateProvince = stateProvince
-    )
-}
-
