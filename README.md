@@ -1,8 +1,14 @@
 # UAE Universities - Android Application
 
+<img src="https://github.com/MohamedWael/UAE-Universties/assets/6018761/99a4c600-64e7-4b5f-9f05-0d0cedfc8e1d" width="30%"/> 
+
+
 This project is an Android application developed as part of an assignment. The application is named **UAE Universities** and is available on GitHub. It is built using **Kotlin** and follows the **Model-View-Intent (MVI)** architectural pattern. The application also uses **Clean Architecture** principles to separate concerns and make the code more maintainable and testable.
 
 ## Key Technologies and Libraries
+
+<img src="https://github.com/MohamedWael/UAE-Universties/assets/6018761/5a639263-ff2c-4543-9d42-ff0cf0852997" align="right" width="50%"/> 
+
 
 - **MVI (Model-View-Intent)**: This project uses the MVI pattern, which works exceptionally well with Kotlin Coroutines and Flow for managing state in a predictable way.
 
@@ -37,3 +43,8 @@ Contributions are welcome. Please open an issue or submit a pull request.
 ## License
 
 This project is licensed under the MIT License. See the LICENSE file for details.
+
+
+
+
+
