@@ -1,6 +1,8 @@
 plugins {
     alias(libs.plugins.androidLibrary)
     alias(libs.plugins.jetbrainsKotlinAndroid)
+    alias(libs.plugins.ksp)
+    id "kotlin-kapt"
     id "org.jetbrains.kotlin.plugin.parcelize"
 }
 
@@ -54,11 +56,11 @@ dependencies {
     implementation libs.google.material
     implementation libs.google.gson
 
-    implementation libs.google.gson
     implementation libs.retrofit2
     implementation libs.retrofit2.converter.gson
     implementation libs.okhttp3.logging.interceptor
     implementation libs.dagger2
+    kapt libs.google.dagger.compiler
 
     testImplementation libs.junit
     androidTestImplementation libs.androidx.junit
