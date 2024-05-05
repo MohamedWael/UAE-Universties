@@ -8,20 +8,14 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.net.toUri
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
-import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.mowael.universities.databinding.FragmentUniversitiesBinding
 import com.mowael.universities.di.UniversitiesComponent
 import com.mowael.universities.presentation.UniversitiesState
 import com.mowael.universities.presentation.UniversitiesViewModel
 import com.mowael.universities.view.adapter.UniversitiesAdapter
-import kotlinx.coroutines.launch
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -39,8 +33,7 @@ class UniversitiesFragment : Fragment() {
     private lateinit var binding: FragmentUniversitiesBinding
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         binding = FragmentUniversitiesBinding.inflate(inflater, container, false)
         val navController = findNavController()
@@ -52,11 +45,13 @@ class UniversitiesFragment : Fragment() {
         val component = UniversitiesComponent.create(requireActivity().application)
         component.inject(this)
 
-        val viewModel = ViewModelProvider(this, component.universitiesViewModelFactory())[UniversitiesViewModel::class.java]
+        val viewModel = ViewModelProvider(
+            this, component.universitiesViewModelFactory()
+        )[UniversitiesViewModel::class.java]
 
-            navController.currentBackStackEntry?.savedStateHandle?.getLiveData(ARG_REFRESH, false)
+        navController.currentBackStackEntry?.savedStateHandle?.getLiveData(ARG_REFRESH, false)
             ?.observe(viewLifecycleOwner) { result ->
-                if (result){
+                if (result) {
                     viewModel.getUniversities()
                 }
             }
@@ -79,9 +74,7 @@ class UniversitiesFragment : Fragment() {
                 binding.progress.visibility = View.GONE
                 Log.e("UniversitiesFragment", it.error.message.toString())
                 Toast.makeText(
-                    requireContext(),
-                    "An error occured: ${it.error.message}",
-                    Toast.LENGTH_SHORT
+                    requireContext(), "An error occured: ${it.error.message}", Toast.LENGTH_SHORT
                 ).show()
             }
 
@@ -102,12 +95,11 @@ class UniversitiesFragment : Fragment() {
          */
         // TODO: Rename and change types and number of parameters
         @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            UniversitiesFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
+        fun newInstance(param1: String, param2: String) = UniversitiesFragment().apply {
+            arguments = Bundle().apply {
+                putString(ARG_PARAM1, param1)
+                putString(ARG_PARAM2, param2)
             }
+        }
     }
 }
