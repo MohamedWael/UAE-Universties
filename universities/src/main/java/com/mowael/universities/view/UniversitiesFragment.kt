@@ -6,12 +6,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.net.toUri
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.mowael.universities.databinding.FragmentUniversitiesBinding
 import com.mowael.universities.di.UniversitiesComponent
@@ -33,8 +36,6 @@ private const val ARG_REFRESH = "ARG_REFRESH"
  */
 class UniversitiesFragment : Fragment() {
 
-
-    var onUniversityItemClick: ((id: Long, name: String?) -> Unit)? = null
     private lateinit var binding: FragmentUniversitiesBinding
 
     override fun onCreateView(
@@ -42,16 +43,18 @@ class UniversitiesFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentUniversitiesBinding.inflate(inflater, container, false)
+        val navController = findNavController()
 
         binding.rvUniversities.layoutManager = LinearLayoutManager(requireContext())
         binding.rvUniversities.adapter = UniversitiesAdapter(arrayListOf()) { id, name ->
-            onUniversityItemClick?.invoke(id, name)
+            navController.navigate("http://universities.hipolabs.com/$name".toUri())
         }
         val component = UniversitiesComponent.create(requireActivity().application)
         component.inject(this)
 
         val viewModel = ViewModelProvider(this, component.universitiesViewModelFactory())[UniversitiesViewModel::class.java]
-        findNavController().currentBackStackEntry?.savedStateHandle?.getLiveData(ARG_REFRESH, false)
+
+            navController.currentBackStackEntry?.savedStateHandle?.getLiveData(ARG_REFRESH, false)
             ?.observe(viewLifecycleOwner) { result ->
                 if (result){
                     viewModel.getUniversities()

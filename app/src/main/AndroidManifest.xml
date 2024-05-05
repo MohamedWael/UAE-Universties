@@ -22,6 +22,9 @@
             android:exported="true"
             android:label="@string/app_name"
             android:theme="@style/Theme.UAEUniversties">
+
+            <nav-graph android:value="@navigation/nav_graph" />
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

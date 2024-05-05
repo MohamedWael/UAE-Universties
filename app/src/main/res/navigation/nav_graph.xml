@@ -7,7 +7,8 @@
     <fragment
         android:id="@+id/universitiesFragment"
         android:name="com.mowael.universities.view.UniversitiesFragment"
-        android:label="UniversitiesFragment" >
+        android:label="UniversitiesFragment">
+
         <action
             android:id="@+id/action_universitiesFragment_to_universityDetailsFragment"
             app:destination="@id/universityDetailsFragment" />
@@ -16,5 +17,17 @@
     <fragment
         android:id="@+id/universityDetailsFragment"
         android:name="com.mowael.universitydetails.view.UniversityDetailsFragment"
-        android:label="UniversityDetailsFragment" />
+        android:label="UniversityDetailsFragment">
+        <argument
+            android:name="university_name"
+            app:argType="string"
+            app:nullable="true" />
+        <deepLink
+            android:id="@+id/deepLink"
+            app:action="ACTION_SEND"
+            app:mimeType="text/html"
+            app:uri="http://universities.hipolabs.com/{university_name}" />
+    </fragment>
+
+
 </navigation>
