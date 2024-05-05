@@ -45,6 +45,8 @@ dependencies {
     implementation libs.androidx.room.runtime
     annotationProcessor libs.androidx.room.compiler
     ksp libs.androidx.room.compiler
+    implementation libs.dagger2
+    ksp libs.google.dagger.compiler
 
     testImplementation libs.junit
     testImplementation libs.androidx.room.testing
