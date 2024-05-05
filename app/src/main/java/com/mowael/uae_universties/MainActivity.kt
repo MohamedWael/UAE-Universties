@@ -21,17 +21,8 @@ class MainActivity : AppCompatActivity() {
                     fragment.onUniversityItemClick = { _, name ->
                         navController.navigate(
                             R.id.action_universitiesFragment_to_universityDetailsFragment,
-                            Bundle().apply {
-
-                                putString(ARG_UNIVERSITY_NAME, name)
-                            })
+                            Bundle().apply { putString(ARG_UNIVERSITY_NAME, name) })
                     }
-                }
-            }
-
-            navFragment.childFragmentManager.addFragmentOnAttachListener() { _, fragment ->
-                if (fragment is UniversityDetailsFragment) {
-                    fragment.onRefreshClick = { navController.popBackStack() }
                 }
             }
         }

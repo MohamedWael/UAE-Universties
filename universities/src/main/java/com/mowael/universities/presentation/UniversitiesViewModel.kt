@@ -16,6 +16,10 @@ class UniversitiesViewModel @Inject constructor(
     private val _universitiesLiveData = MutableLiveData<UniversitiesState>()
     val universitiesLiveData: LiveData<UniversitiesState> = _universitiesLiveData
 
+    init {
+        getUniversities()
+    }
+
     fun getUniversities() = viewModelScope.launch {
         _universitiesLiveData.value = UniversitiesState.Loading
         try {

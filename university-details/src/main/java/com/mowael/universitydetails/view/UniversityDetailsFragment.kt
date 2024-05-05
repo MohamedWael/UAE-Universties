@@ -8,12 +8,14 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.mowael.universitydetails.databinding.FragmentUniversityDetailsBinding
 import com.mowael.universitydetails.di.UniversityDetailsComponent
 import com.mowael.universitydetails.presentation.UniversityDetailsState
 import com.mowael.universitydetails.presentation.UniversityDetailsViewModel
 
 const val ARG_UNIVERSITY_NAME = "university_name"
+private const val ARG_REFRESH = "ARG_REFRESH"
 
 class UniversityDetailsFragment : Fragment() {
 
@@ -32,7 +34,6 @@ class UniversityDetailsFragment : Fragment() {
         )
     }
     private val viewModel: UniversityDetailsViewModel by viewModels(factoryProducer = { component.universityDetailsViewModelFactory() })
-    var onRefreshClick: (() -> Unit)? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -47,11 +48,17 @@ class UniversityDetailsFragment : Fragment() {
                 viewModel.getUniversityByName(universityNmae)
             }
         }
-
-        binding.btnRefresh.setOnClickListener {
-            onRefreshClick?.invoke()
-        }
+        handleRefreshButton()
         return binding.root
+    }
+
+    private fun handleRefreshButton() {
+        val navController =  findNavController()
+        navController.previousBackStackEntry?.savedStateHandle?.set(ARG_REFRESH, false)
+        binding.btnRefresh.setOnClickListener {
+            navController.previousBackStackEntry?.savedStateHandle?.set(ARG_REFRESH, true)
+            navController.popBackStack()
+        }
     }
 
     private fun renderState(state: UniversityDetailsState) {
@@ -79,10 +86,5 @@ class UniversityDetailsFragment : Fragment() {
             }
         }
 
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        onRefreshClick = null
     }
 }

@@ -7,18 +7,24 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.mowael.universities.databinding.FragmentUniversitiesBinding
 import com.mowael.universities.di.UniversitiesComponent
 import com.mowael.universities.presentation.UniversitiesState
 import com.mowael.universities.presentation.UniversitiesViewModel
 import com.mowael.universities.view.adapter.UniversitiesAdapter
+import kotlinx.coroutines.launch
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
+private const val ARG_REFRESH = "ARG_REFRESH"
 
 /**
  * A simple [Fragment] subclass.
@@ -43,13 +49,16 @@ class UniversitiesFragment : Fragment() {
         }
         val component = UniversitiesComponent.create(requireActivity().application)
         component.inject(this)
-        val viewModel = ViewModelProvider(
-            this,
-            component.universitiesViewModelFactory()
-        )[UniversitiesViewModel::class.java]
 
+        val viewModel = ViewModelProvider(this, component.universitiesViewModelFactory())[UniversitiesViewModel::class.java]
+        findNavController().currentBackStackEntry?.savedStateHandle?.getLiveData(ARG_REFRESH, false)
+            ?.observe(viewLifecycleOwner) { result ->
+                if (result){
+                    viewModel.getUniversities()
+                }
+            }
         viewModel.universitiesLiveData.observe(viewLifecycleOwner) { renderState(it) }
-        viewModel.getUniversities()
+
         // Inflate the layout for this fragment
         return binding.root
     }
